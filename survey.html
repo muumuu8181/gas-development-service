@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケート - Google Apps Script 開発サービス</title>
+    <style>
+        * {margin: 0;padding: 0;box-sizing: border-box;}
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;line-height: 1.6;color: #333;background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);min-height: 100vh;padding: 20px;}
+        .page-wrapper {max-width: 1400px;margin: 0 auto;display: flex;gap: 20px;align-items: flex-start;}
+        .sidebar {width: 250px;position: sticky;top: 20px;background: white;border-radius: 15px;box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);padding: 25px;flex-shrink: 0;}
+        .sidebar h3 {color: #34A853;font-size: 1.2em;margin-bottom: 20px;padding-bottom: 10px;border-bottom: 2px solid #E8F5E9;}
+        .sidebar .version {text-align: center;color: #999;font-size: 0.85em;margin-bottom: 15px;padding: 5px;background: #f8f9fa;border-radius: 5px;}
+        .sidebar nav ul {list-style: none;}
+        .sidebar nav ul li {margin-bottom: 12px;}
+        .sidebar nav ul li a {display: block;color: #555;text-decoration: none;padding: 10px 15px;border-radius: 8px;transition: all 0.3s;font-weight: 500;}
+        .sidebar nav ul li a:hover {background: #E8F5E9;color: #34A853;transform: translateX(5px);}
+        .sidebar nav ul li a.active {background: linear-gradient(135deg, #34A853 0%, #0F9D58 100%);color: white;}
+        .container {flex: 1;background: white;border-radius: 20px;box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);overflow: hidden;}
+        header {background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);color: white;padding: 50px 40px;text-align: center;}
+        h1 {font-size: 2.5em;margin-bottom: 15px;font-weight: 700;}
+        .subtitle {font-size: 1.2em;opacity: 0.95;line-height: 1.8;}
+        .content {padding: 50px 40px;}
+        .intro {background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);padding: 30px;border-radius: 15px;margin-bottom: 40px;border-left: 5px solid #2196F3;}
+        .intro h2 {color: #1976D2;margin-bottom: 15px;font-size: 1.8em;}
+        .intro p {color: #2c3e50;line-height: 1.8;}
+        .form-section {background: #f8f9fa;padding: 40px;border-radius: 15px;margin-bottom: 30px;}
+        .form-section h3 {color: #667eea;margin-bottom: 25px;font-size: 1.6em;}
+        .thank-you {background: #FFF9E6;padding: 25px;border-radius: 10px;border-left: 4px solid #FFC107;margin-bottom: 30px;}
+        .thank-you h4 {color: #F57C00;margin-bottom: 10px;}
+        .thank-you p {color: #666;line-height: 1.8;}
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar">
+            <div class="version">Version 0.11</div>
+            <h3>📑 メニュー</h3>
+            <nav><ul>
+                <li><a href="index.html#top">ホーム</a></li>
+                <li><a href="index.html#services">サービス紹介</a></li>
+                <li><a href="index.html#features">GASでできること</a></li>
+                <li><a href="index.html#benefits">導入メリット</a></li>
+                <li><a href="index.html#simulator">コスト削減シミュレーター</a></li>
+                <li><a href="index.html#media">動画・実績紹介</a></li>
+                <li><a href="index.html#cases">導入事例</a></li>
+                <li><a href="index.html#pricing">料金</a></li>
+                <li><a href="index.html#faq">よくある質問</a></li>
+                <li><a href="contact.html">📧 無料相談</a></li>
+                <li><a href="survey.html" class="active">📊 アンケート</a></li>
+            </ul></nav>
+        </aside>
+        <div class="container">
+            <header>
+                <h1>📊 アンケート</h1>
+                <p class="subtitle">より良いサービス提供のため、ご協力をお願いします</p>
+            </header>
+            <div class="content">
+                <div class="intro">
+                    <h2>📝 アンケートご協力のお願い</h2>
+                    <p>お客様のニーズをより深く理解し、サービス向上に役立てるため、簡単なアンケートにご協力ください。<br>メールでご意見をお送りいただけますと幸いです。</p>
+                </div>
+                <div class="form-section">
+                    <h3>📧 アンケート送信方法</h3>
+                    <div style="background: white; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+                        <div style="font-size: 4em; margin-bottom: 20px;">📮</div>
+                        <h4 style="color: #667eea; font-size: 1.5em; margin-bottom: 20px;">メールでアンケートをお送りください</h4>
+                        <a href="mailto:kakari8888@gmail.com?subject=【GAS開発サービス】アンケート&body=業種：%0D%0A従業員数：%0D%0Aご意見・ご要望：%0D%0A"
+                           style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 50px; border-radius: 50px; text-decoration: none; font-size: 1.3em; font-weight: bold; margin: 20px 0; transition: transform 0.3s, box-shadow 0.3s;"
+                           onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 30px rgba(102, 126, 234, 0.4)'"
+                           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                            ✉️ kakari8888@gmail.com
+                        </a>
+                        <p style="color: #666; margin-top: 20px; line-height: 1.8;">※クリックするとメールソフトが起動します<br>件名に「アンケート」と入れていただけるとスムーズです</p>
+                    </div>
+                    <div style="background: #E3F2FD; padding: 30px; border-radius: 15px; border-left: 5px solid #2196F3;">
+                        <h4 style="color: #1976D2; margin-bottom: 15px; font-size: 1.3em;">📝 お聞かせいただきたい内容</h4>
+                        <ul style="color: #2c3e50; line-height: 2; padding-left: 20px;">
+                            <li>業種</li>
+                            <li>従業員数</li>
+                            <li>業務自動化へのご関心</li>
+                            <li>自動化したい業務内容</li>
+                            <li>Google Apps Script（GAS）の認知度</li>
+                            <li>Webサイトの分かりやすさ</li>
+                            <li>ご意見・ご要望</li>
+                        </ul>
+                        <p style="color: #666; margin-top: 15px; font-size: 0.95em;">お答えいただける範囲で結構です。簡単なコメントだけでも大歓迎です！</p>
+                    </div>
+                </div>
+                <div class="thank-you">
+                    <h4>🙏 ご協力ありがとうございます</h4>
+                    <p>いただいたご意見は、サービス改善に活用させていただきます。<br>今後とも、どうぞよろしくお願いいたします。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
